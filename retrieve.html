@@ -1,0 +1,101 @@
+<html>
+    <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <title>retrieve</title>
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script></head>
+<body bgcolor="#FFFFFF">
+      <ul>
+        <li><a class="active" href="insert.html">Create</a></li>
+        </div>
+        <li><a href="retrieve.html">Retrieve</a></li>
+        <li><a href="update.html">update</a></li>
+        <li><a href="delete.html">Delete</a></li>
+        <li><a href="deleteselected.html">Delete Selected</a></li>
+    </ul><br><br><br><br>
+  
+    <div   ng-app="myApp" ng-controller="ctrl3">
+    <br><br><br><br>
+    <div align="center">
+        <div style="width:300px; border: solid 1px #333333; " align="left">
+            <div style="background-color:#333333; color:#FFFFFF; padding:3px;"><b>retrieve</b></div>
+
+            <div style="margin:30px">
+
+                <form >
+                        <label>Name  &nbsp;&nbsp;&nbsp;:</label><input ng-model="name" class="box" /><br /><br />
+                        <input type="button" value="retrieve" ng-click="myFunc()" />
+                    </form>
+
+                
+            </div>
+                                
+
+
+        </div>
+
+    </div>
+        <div><br><br>
+            <table  width="50%" align="center" height="60">
+    <tr ng-repeat="x in records" bgcolor="skyblue">
+        <th>Name</th>
+        <th>Id</th>
+        <th>Cost</th>
+        <th>Publisher</th>
+        </tr>
+
+    <tr ng-repeat="x in names" bgcolor="grey">
+        <td>{{x.name}}</td>
+        <td>{{x.id}}</td>
+        <td>{{x.cost}}</td>
+        <td>{{x.pub}}</td>
+        
+</tr>
+                
+</table>
+</div>
+    </div>
+
+    <script>
+                          var app = angular.module('myApp', []); 
+                          app.controller('ctrl3', function ($scope, $http) {
+                              
+                              $scope.myFunc = function() {
+                           $scope.records = [
+    {
+      "name" : "name",
+      "id" : "id",
+        "cost":"cost",
+        "pub":"pub"
+    }]
+                                  var name=$scope.name;
+                              var req = { 
+                                  method: 'POST',
+                                  url: 'http://localhost:3000/retrieve', 
+                   headers: { 'Content-Type': 'Application/json' },
+                   data: {
+                          name: name, 
+                         }
+                              }
+                          
+                                  $http(req)
+                          .then(function (response) {
+                          $scope.names = response.data;
+                                      
+                                      
+                         });
+                                  };
+                                  
+        
+        });
+        </script>
+
+
+
+            </body>
+                </html>
